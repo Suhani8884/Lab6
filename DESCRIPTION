@@ -1,6 +1,6 @@
 Package: Lab6Assign
 Type: Package
-Title: What the package does (short line)
+Title: Speedup the R code
 Version: 1.0
 Date: 2020-10-06
 Author: shwetha ,suhani, Hoda
@@ -10,3 +10,4 @@ Description: A package to study the effects of algorithms with different computi
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.1
