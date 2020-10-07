@@ -1,9 +1,4 @@
-#'Brute Force Search
-#'
-#' @param x A Data frame (knapsack)
-#' @param w An integer(Capacity)
-#' 
-#' @export
+
 
 
 set.seed(42)
@@ -14,6 +9,15 @@ knapsack_objects <-
     v=runif(n = n, 0, 10000)
   )
 
+#'Brute Force Search
+#'
+#' @title Knapsack
+#' @description Helps you speed up the code
+#' @param x A Data frame (knapsack)
+#' @param W An integer(Capacity)
+#' 
+#' @export
+#' 
 brute_force_knapsack= function(x,W){
   n=length(x$w)
   w=x$w
