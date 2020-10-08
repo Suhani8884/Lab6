@@ -15,17 +15,17 @@
 
 brute_force_knapsack= function(x,W){
   stopifnot(is.data.frame(x), apply(x, c(1,2), is.numeric), is.numeric(W), W>=0, colnames(x)==c("w","v"))
-  n=length(x$w)
+  n=nrow(x)
   w=x$w
   v=x$v
   result_elements=c()
   result_value=0
-  range=1:2^(n-1)
+  range=1:2^n-1
   for(j in range){
     element=which(intToBits(j)==01)
     total_weights=sum(w[element])
     total_value=sum(v[element])
-    if(total_value > result_value && total_weights <= W){
+    if(total_weights <= W && total_value > result_value){
       result_elements=element
       result_value=total_value
     }
