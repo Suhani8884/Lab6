@@ -1,0 +1,97 @@
+---
+title: "Knapsack"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Knapsack}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Lab6Assign)
+```
+# Introduction
+The knapsack problem is a problem in combinatorial optimization: Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.The goal is to find the knapsack with the largest value of the elements added to the knapsack.This problem is NP-hard, meaning that it is ”at least as hard as the hardest problem in NP” (https://en.wikipedia.org/wiki/NP-hardness)
+
+3 different approaches to solve knapsack problem
+- Brute Force
+- Dynamic programming
+- Greedy
+
+The inputs of the function 
+x = x is the data frame containing 2 variables 'w' as elements weight and 'v' as elements value 
+W = Total capacity of the knapsack
+
+The outputs of the function
+value - Maximum value to get from given input
+elements - The elements which is included in the knapsack 
+
+The data is generated
+
+``` {r}
+set.seed(42) 
+n <- 3000   
+knapsack_objects <- data.frame( w=sample(1:4000, size = n, replace = TRUE),
+                                v=runif(n = n, 0, 10000)
+)
+```
+
+## brute_force_knapsack(x,W)
+
+```{r}
+brute_force_knapsack(knapsack_objects[1:8,], W = 3500)
+```
+
+#### How much time does it takes to run the algorithm for n = 16 objects?
+
+``` {r}
+set.seed(42) 
+n <- 16   
+knapsack_objects <- data.frame( w=sample(1:4000, size = n, replace = TRUE),
+                                v=runif(n = n, 0, 10000)
+)
+system.time(brute_force_knapsack(x = knapsack_objects[1:16,], W = 2000))
+```
+
+## dynamic_knapsack(x,W)
+
+```{r}
+dynamic_knapsack(knapsack_objects[1:8,], W = 3500)
+```
+
+#### How much time does it takes to run the algorithm for n = 500 objects?
+
+``` {r}
+set.seed(42) 
+n <- 500   
+knapsack_objects <- data.frame( w=sample(1:4000, size = n, replace = TRUE),
+                                v=runif(n = n, 0, 10000)
+)
+system.time(dynamic_knapsack(x = knapsack_objects[1:500,], W = 2000))
+```
+
+## greedy_knapsack(x,W)
+
+```{r}
+greedy_knapsack(knapsack_objects[1:800,], W = 3500)
+```
+#### How much time does it takes to run the algorithm for n = 1000000 objects?
+
+``` {r}
+set.seed(42) 
+n <- 1000000   
+knapsack_objects <- data.frame( w=sample(1:4000, size = n, replace = TRUE),
+                                v=runif(n = n, 0, 10000)
+)
+system.time(greedy_knapsack(x = knapsack_objects[1:16,], W = 2000))
+```
+
+
+
