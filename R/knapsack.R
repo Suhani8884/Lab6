@@ -20,7 +20,7 @@ brute_force_knapsack= function(x,W){
   v=x$v
   result_elements=c()
   result_value=0
-  range=1:2^(n-1)
+  range=1:2^(n) - 1
   for(j in range){
     element=which(intToBits(j)==01)
     total_weights=sum(w[element])
@@ -31,6 +31,7 @@ brute_force_knapsack= function(x,W){
     }
   }
   result=list("value"=(result_value),"elements"=result_elements) 
+  print(lengths(result))
   return (result)
 }
 
