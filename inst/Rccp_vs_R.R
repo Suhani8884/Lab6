@@ -6,6 +6,7 @@ w <- x$w
 v <- x$v
 W <- 2000
 library(Rcpp)
+#
 
 cppFunction('List brute_force_Rcpp(IntegerVector w, NumericVector v ,int W) {
   int  n=w.length();
