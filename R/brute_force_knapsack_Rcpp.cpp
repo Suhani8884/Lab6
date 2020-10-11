@@ -34,5 +34,5 @@ List brute_force_Rcpp(IntegerVector w, NumericVector v ,int W) {
     }
   }
 
-  return List::create(_["values"]=total_value,_["elements"] = result);
+  return List::create(_["value"]=total_value,_["elements"] = result);
 }
