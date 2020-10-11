@@ -9,7 +9,7 @@ using namespace std;
 List brute_force_Rcpp(IntegerVector w, NumericVector v ,int W) {
   int  n=w.length();
   NumericVector result(0);
-  int range = static_cast<int>(pow(2, n));
+  int range = pow(2, n);
   int total_value = 0;
   for (int i = 0; i < range;++ i) {
     NumericVector subs(0);
