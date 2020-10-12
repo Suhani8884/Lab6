@@ -30,7 +30,7 @@ brute_force_knapsack= function(x,W){
       result_value=total_value
     }
   }
-  
+  result_value=round(result_value)
   result=list("value"=(result_value),"elements"=result_elements) 
   return (result)
 }

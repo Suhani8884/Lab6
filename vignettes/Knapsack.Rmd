@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(Lab6Assign)
+library(profvis)
 ```
 # Introduction
 The knapsack problem is a problem in combinatorial optimization: Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible.The goal is to find the knapsack with the largest value of the elements added to the knapsack.This problem is NP-hard, meaning that it is ”at least as hard as the hardest problem in NP” (https://en.wikipedia.org/wiki/NP-hardness)
@@ -90,8 +91,38 @@ n <- 1000000
 knapsack_objects <- data.frame( w=sample(1:4000, size = n, replace = TRUE),
                                 v=runif(n = n, 0, 10000)
 )
-system.time(greedy_knapsack(x = knapsack_objects[1:16,], W = 2000))
+system.time(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 2000))
 ```
 
 ## Profiling and optimizing code
-In order to increase the speed, profiling and optimizing the code is done. Package 'profvis' is used to identify bottlenecks.
+In order to increase the speed, profiling and optimizing the code is done. Package 'profvis' is used to identify bottlenecks.We tried to improve the run time of algorithm by implementing Rcpp using C++ in brute force.
+
+``` {r}
+profvis(brute_force_knapsack(x = knapsack_objects[1:16,], W = 2000))
+profvis(dynamic_knapsack(x = knapsack_objects[1:500,], W = 2000))
+profvis(greedy_knapsack(x = knapsack_objects[1:1000000,], W = 2000))
+```
+
+### What performance gain could you get by using Rcpp and C++?
+
+##### Could not compile C function in vignette, thus please run below function in console. Total time taken by brute force 24.8 s and when we run the same in C++ the time taken is 1.08 seconds for an object of 16 elements.
+
+``` {r,eval=FALSE}
+library(Rcpp)
+library(bench)
+set.seed(42)
+n <- 2000
+knapsack_objects <- data.frame(w=sample(1:4000, size = n, replace = TRUE),v=runif(n = n, 0, 10000))
+x <- knapsack_objects[1:16,]
+w <- x$w
+v <- x$v
+W <- 2000
+
+bench::mark(
+  brute_forceR =brute_force_knapsack(x ,W ) ,
+  brute_forceRccp = brute_force_Rcpp(w = w,v =v,W),
+  relative = TRUE,
+  min_iterations = 100,
+  filter_gc = FALSE
+  )
+```
